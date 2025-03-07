@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+*{
+  font-family: 'Helvetica Neue Regular';
+ }
+
+ ::-webkit-scrollbar{
+  width: 12px;
+}
+
+::-webkit-scrollbar-track{
+   width: 14px;
+   background: black;
+}
+::-webkit-scrollbar-thumb{
+  background: #52525b;
+  border-radius: 4px;
+}
+
+.active{
+  @apply bg-zinc-300 border-r-[5px] border-zinc-800
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
+
+.scrollbar-hidden {
+  scrollbar-width: none;
+}
+
