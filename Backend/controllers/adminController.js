@@ -203,5 +203,18 @@ const admindashboard = async(req,res) => {
 
 }
 
+const doctordelete = async(req,res) => {
+    try {
+       const id = req.params.id;
+       if(!id) return res.json({success: false, message:"Doctor not found"})
+        const deletedoctor = await doctorModel.findOneAndDelete({_id: id});
+      if(!deletedoctor) return res.json({success: false, message: "something wrong at delete requestt"})
+        const appointmentdelete = await appointmentModel.findOneAndDelete({docid: id})
+        res.json({success: true, message: "Deleted Successfully"})
+    } catch (error) {
+      res.json({success: false, message: error.message})
+    }
+}
 
-export { addDoctor, adminlogin, checkauthadmin, adminlogout, alldoctorsadmin,allappointment,cancelappointment, admindashboard };
+
+export { addDoctor, adminlogin, checkauthadmin, adminlogout, alldoctorsadmin,allappointment,cancelappointment, admindashboard, doctordelete };
