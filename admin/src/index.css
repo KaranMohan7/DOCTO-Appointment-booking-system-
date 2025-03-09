@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 *{
-  font-family: 'Helvetica Neue Regular';
+  font-family: 'Helvetica Neue Regular','Helvetica Neue', Helvetica, Arial, sans-serif;
  }
 
  ::-webkit-scrollbar{
