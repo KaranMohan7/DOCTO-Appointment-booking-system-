@@ -53,10 +53,10 @@ const Home = () => {
         </div>
 
         <div className="flex items-center flex-wrap gap-5  justify-center px-10">
-          {doctors.map(
+          { doctors.length > 0 ? doctors.map(
             (item, index) =>
               index < 8 && <Link to={`/doctordetail/${item._id}`} key={index}>{<DoctorCard item={item} />}</Link>
-          )}
+          ): <h1 className="font-semibold py-2 text-center">No Doctors available</h1> }
         </div>
         <div className="flex justify-center items-center py-5 ">
           <button

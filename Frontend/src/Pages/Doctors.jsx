@@ -67,11 +67,11 @@ const Doctors = () => {
         
         <div className="flex flex-wrap justify-center py-5 items-center gap-10">
            {
-           filtereddata ? filtereddata.map((item,index) => (
+           filtereddata.length > 0 ? filtereddata.map((item,index) => (
               <Link to={`/doctordetail/${item._id}`} key={index}>
                 <DoctorCard item={item}/>
               </Link>
-            )) : <h1 className="text-center font-semibold">Doctors not available</h1>
+            )) : <h1 className="text-center font-semibold py-2">Doctors not available</h1>
            }
         </div>
 <Footer />
