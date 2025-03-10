@@ -55,7 +55,7 @@ const loginuser = async (req, res) => {
    try {
     const { email, password } = req.body;
 
-  if ((!email, !password)) {
+  if ((!email || !password)) {
     return res.json({ success: false, message: "Invalid Credentials" });
   }
   if (!validator.isEmail(email)) {
@@ -79,12 +79,15 @@ const loginuser = async (req, res) => {
   const token = jwt.sign({ id: emailcheck._id, role: emailcheck.role }, process.env.JWT_KEY);
   if (!token)
     return res.json({ success: false, message: "Something went wrong" });
+
   res.cookie("usertoken", token, {
     httpOnly: true,
-    secure: process.env.NODE_ENV === "production",
-    sameSite: "Strict",
+    secure: true,
+    sameSite: "None",
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
   });
+
+  console.log("Set-Cookie Header:", res.getHeaders()["set-cookie"]);
 
   res.json({ success: true, message: "User Logged in Successfully" });
 
