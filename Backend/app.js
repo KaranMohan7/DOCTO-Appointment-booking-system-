@@ -14,13 +14,17 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary()
 
-const allowedOrigins = [
-    process.env.FRONTEND_URL_USER, 
-    process.env.FRONTEND_URL_ADMIN 
-  ];
-  
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cookieParser())
+
+const allowedOrigins = [
+  process.env.FRONTEND_URL_USER, 
+  process.env.FRONTEND_URL_ADMIN,
+  'http://localhost:5173' 
+];
+
 
 app.use(cors({
     origin: (origin, callback) => {
@@ -33,8 +37,7 @@ app.use(cors({
     credentials: true
   }));
   
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser())
+
 
 app.get("/", (req,res) => {
     res.send("Working")
