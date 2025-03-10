@@ -6,6 +6,7 @@ import DoctorCard from "../Components/DoctorCard";
 import Footer from "../Components/Footer";
 import { appcontext } from "../Context/Appcontext";
 import PanelCard from "../Components/PanelCard";
+import Loading from "../Components/Loading";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Home = () => {
           { doctors.length > 0 ? doctors.map(
             (item, index) =>
               index < 8 && <Link to={`/doctordetail/${item._id}`} key={index}>{<DoctorCard item={item} />}</Link>
-          ): <h1 className="font-semibold py-2 text-center">No Doctors available</h1> }
+          ): <Loading /> }
         </div>
         <div className="flex justify-center items-center py-5 ">
           <button

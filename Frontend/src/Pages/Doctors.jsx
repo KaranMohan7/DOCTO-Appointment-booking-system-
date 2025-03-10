@@ -3,6 +3,7 @@ import { appcontext } from "../Context/Appcontext";
 import DoctorCard from "../Components/DoctorCard";
 import { Link, useNavigate, useParams } from "react-router";
 import Footer from '../Components/Footer'
+import Loading from '../Components/Loading'
 
 
 const Doctors = () => {
@@ -71,7 +72,7 @@ const Doctors = () => {
               <Link to={`/doctordetail/${item._id}`} key={index}>
                 <DoctorCard item={item}/>
               </Link>
-            )) : <h1 className="text-center font-semibold py-2">Doctors not available</h1>
+            )) : <Loading />
            }
         </div>
 <Footer />
