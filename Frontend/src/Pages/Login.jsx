@@ -3,28 +3,34 @@ import { Link, useNavigate } from "react-router-dom";
 import {appcontext} from '../Context/Appcontext'
 import axios from "axios";
 import { toast } from "react-toastify";
+import Loading from '../Components/Loading'
 
 const Login = () => {
   const [email, setemail] = useState("");
   const [password, setpassword] = useState("");
+  const [loading, setloading] = useState(false)
   const {backendurl,authuser,setauthuser} = useContext(appcontext)
   const navigate = useNavigate();
 
   const handlelogin = async(e) => {
     e.preventDefault()
+    setloading(true)
       try {
         const {data} = await axios.post(`${backendurl}/user/login`, {email,password}, {
           withCredentials: true
         })
         if(data.success){
           setauthuser(true)
+          setloading(false)
           navigate("/")
           toast.success(data.message)
         }else{
           setauthuser(false)
+          setloading(false)
           toast.error(data.message)
         }
       } catch (error) {
+        setloading(false)
         toast.error(error.message)
       }
   }
@@ -34,8 +40,13 @@ const Login = () => {
     navigate("/")
    }
   }, [])
-  
 
+  if(loading){
+     return <div className="flex items-center justify-center w-full h-screen">
+      <Loading />
+     </div>
+  }
+  
   return (
     <>
       <div className="w-full h-screen flex justify-center">

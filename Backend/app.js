@@ -14,11 +14,25 @@ const port = process.env.PORT || 4000;
 connectDB();
 connectCloudinary()
 
+const allowedOrigins = [
+    process.env.FRONTEND_URL_USER, 
+    process.env.FRONTEND_URL_ADMIN 
+  ];
+  
+
 app.use(express.json());
+
 app.use(cors({
-    origin: true, 
-    credentials: true, 
+    origin: (origin, callback) => {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true
   }));
+  
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser())
 
