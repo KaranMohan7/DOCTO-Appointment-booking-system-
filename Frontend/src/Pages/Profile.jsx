@@ -4,16 +4,21 @@ import Footer from "../Components/Footer";
 import { toast } from "react-toastify";
 import { appcontext } from "../Context/Appcontext";
 import axios from "axios";
+import Loading from "../Components/Loading";
+import { useNavigate } from "react-router";
 
 const Profile = () => {
-  const { backendurl, setprofileDetails, profileDetails, getprofiledetails } =
+  const { backendurl, setprofileDetails, profileDetails, getprofiledetails, authuser } =
     useContext(appcontext);
 
   const [edit, setedit] = useState(false);
+  const [loading,setloading] = useState(false)
   const [image, setimage] = useState(false);
+  const navigate = useNavigate()
 
   const edituser = async (e) => {
     e.preventDefault();
+    setloading(true)
     const formData = new FormData();
     formData.append("email", profileDetails.email);
     formData.append("phone", profileDetails.phone);
@@ -36,21 +41,36 @@ const Profile = () => {
         }
       );
       if (data.success) {
+        setloading(false)
         getprofiledetails();
         setedit(false);
 
         setimage(false);
         toast.success(data.message);
       } else {
+        setloading(false)
         toast.error(data.message);
       }
     } catch (error) {
+      setloading(false)
       toast.error(error.message);
     }
   };
 
+  useEffect(() => {
+     if(!authuser){
+       navigate("/")
+     }
+  }, [authuser])
+  
+
   return (
     <div className="w-full h-screen">
+        {loading && (
+        <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0">
+          <Loading />
+        </div>
+      )}
       <div className="px-5 md:px-10 lg:px-20 w-[50%]">
         {edit ? (
           <label htmlFor="image">

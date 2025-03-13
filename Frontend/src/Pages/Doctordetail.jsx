@@ -6,10 +6,12 @@ import Relateddoctors from "../Components/Relateddoctors";
 import Footer from "../Components/Footer";
 import { toast } from "react-toastify";
 import axios from "axios";
+import Loading from '../Components/Loading'
 
 
 const Doctordetail = () => {
   const { doctors, symbol, backendurl, authuser, getdoctors } = useContext(appcontext);
+  const [loading,setloading] = useState(false)
   const [doctorinfo, setdoctorinfo] = useState(null);
 
   const { id } = useParams();
@@ -84,7 +86,7 @@ const Doctordetail = () => {
   };
 
   const postappointments = async() => {
-
+   setloading(true)
     if(!authuser){
       toast.warn("Log in to book appointment")
       return navigate("/login")
@@ -103,13 +105,16 @@ const Doctordetail = () => {
           withCredentials: true,
          })
          if(data.success){
+          setloading(false)
           toast.success(data.message)
           getdoctors();
           navigate("/appointments")
          }else{
+          setloading(false)
           toast.error(data.message)
          }
       } catch (error) {
+        setloading(false)
         toast.error(error.message)
       }
   }
@@ -129,8 +134,23 @@ const Doctordetail = () => {
 
   },[pathname])
 
+  useEffect(() => {
+    if (loading) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto"; 
+    }
+  },[loading])
+
+
   return (
     <div className="w-full h-screen">
+      {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
+
       {doctorinfo ? (
         <div className="w-full flex flex-col lg:flex-row items-center justify-center lg:gap-4 px-5 md:px-10 lg:px-44 ">
           <div className="w-82 md:w-96 lg:w-96 bg-zinc-500 rounded-md  ">
