@@ -4,9 +4,10 @@ import { Doctorcontext } from "../context/Doctorcontext";
 import axios from "axios";
 import { Appcontext } from "../context/Appcontext";
 import { toast } from "react-toastify";
+import Loading from '../components/Loading'
 
 const Doctorprofile = () => {
-  const { backendurl, doctorpass } = useContext(Doctorcontext);
+  const { backendurl, doctorpass, loading, setloading } = useContext(Doctorcontext);
   const { currency } = useContext(Appcontext);
   const [profiledata, setprofiledata] = useState({});
   const [edit, setedit] = useState(false);
@@ -40,6 +41,7 @@ const Doctorprofile = () => {
 
   const handlesubmit = async (e) => {
     e.preventDefault()
+    setloading(true)
     try {
       const { data } = await axios.post(
         `${backendurl}/doctor/updateprofile`,
@@ -49,13 +51,16 @@ const Doctorprofile = () => {
         }
       );
       if (data.success) {
+        setloading(false)
         toast.success(data.message);
         setedit(false)
         getprofile();
       } else {
+        setloading(false)
         toast.error(data.message);
       }
     } catch (error) {
+      setloading(false)
       toast.error(error.message);
     }
   };
@@ -68,6 +73,11 @@ const Doctorprofile = () => {
 
   return (
     <div className="w-full">
+       {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
       <p className="text-2xl lg:text-3xl font-semibold p-5">Profile</p>
       <form onSubmit={handlesubmit}>
         <div className="flex flex-col justify-center items-start px-7">
