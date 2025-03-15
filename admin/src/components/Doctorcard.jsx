@@ -6,21 +6,24 @@ import axios from 'axios';
 
 const Doctorcard = ({item}) => {
 
-  const { availability, getavailability, backendurl, alldoctors} = useContext(Admincontext);
-  const [warn,setwarn] = useState(false)
+  const { availability, getavailability, backendurl, alldoctors, setloading} = useContext(Admincontext);
 
   const deletedoctor = async(id) => {
+    setloading(true)
      try {
         const {data} = await axios.delete(`${backendurl}/admin/doctordelete/${id}`, {
           withCredentials: true
         })
         if(data.success){
+          setloading(false)
              alldoctors();
              toast.success(data.message)
-        }else[
+        }else{
+          setloading(false)
           toast.error(data.message)
-        ]
+        }
      } catch (error) {
+      setloading(false)
        toast.error(error.message)
      }
   }

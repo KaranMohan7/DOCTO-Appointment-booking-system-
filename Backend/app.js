@@ -22,7 +22,8 @@ app.use(cookieParser())
 const allowedOrigins = [
   process.env.FRONTEND_URL_USER, 
   process.env.FRONTEND_URL_ADMIN,
-  'http://localhost:5173' 
+  'http://localhost:5173',
+  'http://localhost:5174' 
 ];
 
 

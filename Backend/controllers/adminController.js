@@ -96,9 +96,9 @@ const adminlogin = async (req, res) => {
       email === process.env.ADMIN_EMAIL &&
       password === process.env.ADMIN_PASSWORD
     ) {
-      const admintoken = jwt.sign({email: email, role: process.env.ADMIN_ROLE}, process.env.JWT_KEY);
+      const admintoken = jwt.sign({email: email, role: process.env.ADMIN_ROLE}, process.env.JWT_KEY,  { expiresIn: "3d" });
       if(!admintoken) return res.json({success: false, message: "Something went wrong"});
-      res.cookie("admintoken",admintoken, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "None", expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), })
+      res.cookie("admintoken", admintoken, { httpOnly: true, secure: process.env.NODE_ENV === "production" , expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000) })
       res.json({success: true, message: "Logged in Successfully"})
     } else {
       res.json({ success: false, message: "Invalid Credentials" });
@@ -118,7 +118,6 @@ const adminlogout = (req,res) => {
           {
             httpOnly: true,
             secure: process.env.NODE_ENV === "production",
-            sameSite: "None",
             expires: new Date(0),
         });
         res.json({success: true, message: "Logout Successfully"});

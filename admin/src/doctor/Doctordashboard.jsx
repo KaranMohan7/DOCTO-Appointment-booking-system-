@@ -7,10 +7,11 @@ import { FaUser } from "react-icons/fa";
 import { SiMoneygram } from "react-icons/si";
 import { Appcontext } from '../context/Appcontext';
 import { assets } from '../assets/assets';
+import Loading from '../components/Loading';
 
 
 const Doctordashboard = () => {
-  const {backendurl,doctorpass} = useContext(Doctorcontext);
+  const {backendurl,doctorpass, loading, setloading} = useContext(Doctorcontext);
   const {currency,slotdateformat} = useContext(Appcontext)
   const  [dashboarddata, setdashboarddata] = useState([])
   
@@ -31,17 +32,21 @@ const Doctordashboard = () => {
 }
 
   const cancelappointment = async(id) => {
+    setloading(true)
     try {
        const {data} = await axios.post(`${backendurl}/doctor/cancelappointment`, {id}, {
         withCredentials: true
        })
        if(data.success){
+        setloading(false)
         toast.success("Appointment Cancelled")
         getdoctordashboard()
        }else{
+        setloading(false)
         toast.error(data.success)
        }
     } catch (error) {
+      setloading(false)
       toast.error(error.message)
     }
 }
@@ -55,6 +60,11 @@ const Doctordashboard = () => {
       
   return (
     <div className='w-full '>
+      {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
       <p className="text-2xl lg:text-3xl font-semibold p-5">Dashboard</p>
                  <div className='flex flex-wrap items-center justify-center gap-7'>
                   <div className='flex items-center justify-center w-64 h-32 bg-zinc-100 rounded-md shadow-lg gap-4'>

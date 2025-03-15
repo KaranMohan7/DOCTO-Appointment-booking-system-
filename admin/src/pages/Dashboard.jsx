@@ -7,9 +7,10 @@ import { FaUserDoctor } from "react-icons/fa6";
 import { SlCalender } from "react-icons/sl";
 import {assets} from '../assets/assets.js'
 import { Appcontext } from '../context/Appcontext.jsx';
+import Loading from '../components/Loading.jsx'
 
 const Dashboard = () => {
-    const {backendurl, token} = useContext(Admincontext)
+    const {backendurl, token, setloading, loading} = useContext(Admincontext)
     const {slotdateformat} = useContext(Appcontext)
     const [wholedata, setwholedata] = useState({})
 
@@ -31,17 +32,21 @@ const Dashboard = () => {
    }
 
    const cancelappointment = async(id) => {
+       setloading(true)
     try {
        const {data} = await axios.post(`${backendurl}/admin/cancelappointment`, {id}, {
         withCredentials: true
        })
        if(data.success){
+        setloading(false)
         toast.success(data.message)
         getdashboard()
        }else{
+        setloading(false)
         toast.error(data.message)
        }
     } catch (error) {
+      setloading(false)
       toast.error(error.message)
     }
 }
@@ -52,6 +57,11 @@ useEffect(() => {
 
   return (
     <div className='w-full p-6'>
+      {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
            <p className="text-2xl lg:text-3xl font-semibold mb-4 text-gray-800">Dashboard</p>
            <div className='flex flex-wrap items-center justify-center gap-7'>
             <div className='flex items-center justify-center w-64 h-32 bg-zinc-100 rounded-md shadow-lg gap-4'>

@@ -1,13 +1,12 @@
-import axios from 'axios'
-import React, { useContext, useEffect, useState } from 'react'
-import { toast } from 'react-toastify'
+import React, { useContext, useEffect} from 'react'
 import { Doctorcontext } from '../context/Doctorcontext'
 import { Appcontext } from '../context/Appcontext'
 import { assets } from '../assets/assets'
+import Loading from '../components/Loading'
 
 
 const Doctorappointments = () => {
-  const {appointments,getappointments,doctorpass, tickappointment, cancelappointment} = useContext(Doctorcontext)
+  const {appointments,getappointments,doctorpass, tickappointment, cancelappointment, loading} = useContext(Doctorcontext)
   const {currency,getage,slotdateformat} = useContext(Appcontext)
 
 
@@ -18,6 +17,11 @@ const Doctorappointments = () => {
 
   return (
     <div className='w-full'>
+      {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
       <h1 className='text-2xl lg:text-3xl font-semibold p-5'>All Appointments</h1>
        <div className="hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] bg-gray-100 py-3 px-6 rounded-md font-semibold text-gray-600">
             <p>#</p>

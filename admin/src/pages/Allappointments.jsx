@@ -4,11 +4,12 @@ import { useEffect } from 'react'
 import { Admincontext } from '../context/Admincontext'
 import { Appcontext } from '../context/Appcontext'
 import {assets} from '../assets/assets.js'
+import Loading from '../components/Loading.jsx'
 
 
 const Allappointments = () => {
 
-  const { getallappointments, allappointments,token,cancelappointment} = useContext(Admincontext)
+  const { getallappointments, allappointments,token,cancelappointment, loading} = useContext(Admincontext)
   const {getage,currency,slotdateformat} = useContext(Appcontext)
 
     useEffect(() => {
@@ -21,7 +22,11 @@ const Allappointments = () => {
     <div className="w-full p-6 bg-white rounded-lg shadow-md">
 
     <p className="text-2xl lg:text-3xl font-semibold mb-4 text-gray-800">All Appointments</p>
-
+    {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
    
     <div className="hidden sm:grid grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] bg-gray-100 py-3 px-6 rounded-md font-semibold text-gray-600">
       <p>#</p>

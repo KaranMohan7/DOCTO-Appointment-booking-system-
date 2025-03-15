@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { createContext } from 'react'
 
 export const Appcontext = createContext()
@@ -44,7 +44,7 @@ const AppContextProvider = ({children}) => {
        getage,
        currency,
        months,
-       slotdateformat
+       slotdateformat,
      }
 
   return (

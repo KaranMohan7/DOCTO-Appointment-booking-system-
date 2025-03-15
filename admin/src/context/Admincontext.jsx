@@ -10,6 +10,8 @@ const AdminContextProvider = ({ children }) => {
   const [doctors, setdoctors] = useState([])
   const [availability, setavailability] = useState(true)
   const [allappointments, setallappointments] = useState([])
+  const [loading, setloading] = useState(false)
+
 
 
   const checkAuth = async () => {
@@ -32,17 +34,21 @@ const AdminContextProvider = ({ children }) => {
 
 
   const cancelappointment = async(id) => {
+    setloading(true)
     try {
        const {data} = await axios.post(`${backendurl}/admin/cancelappointment`, {id}, {
         withCredentials: true
        })
        if(data.success){
+        setloading(false)
         toast.success(data.message)
         getallappointments()
        }else{
         toast.error(data.message)
+        setloading(false)
        }
     } catch (error) {
+      setloading(false)
       toast.error(error.message)
     }
 }
@@ -107,6 +113,8 @@ const AdminContextProvider = ({ children }) => {
            getallappointments,
            allappointments,setallappointments,
            cancelappointment,
+           setloading,
+           loading
          
      }
 
