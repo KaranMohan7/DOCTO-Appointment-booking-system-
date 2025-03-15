@@ -83,6 +83,7 @@ const loginuser = async (req, res) => {
   res.cookie("usertoken", token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
+    sameSite: "None",
     expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
   });
 
@@ -98,6 +99,7 @@ const logoutuser = async (req, res) => {
         res.cookie("usertoken", "", {
           httpOnly: true,
           secure: process.env.NODE_ENV === "production",
+          sameSite: "None",
           expires: new Date(0),
         });
         res.json({ success: true, message: "Logout Successfully" });

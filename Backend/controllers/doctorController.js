@@ -50,7 +50,7 @@ const doctorlogin = async(req,res) => {
       if(!passwordcheck) return res.json({success: false, message: "Something went wrong"})
 
        const doctortoken =  jwt.sign({id: emaildoctor._id}, process.env.JWT_KEY,  { expiresIn: "3d" });
-       res.cookie("doctortoken",doctortoken, { httpOnly: true, secure: process.env.NODE_ENV === "production", expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), })
+       res.cookie("doctortoken",doctortoken, { httpOnly: true, secure: process.env.NODE_ENV === "production", sameSite: "None", expires: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000), })
 
        res.json({success: true, message: "Logged in successfully"})
      } catch (error) {
@@ -64,6 +64,7 @@ const logoutdoctor = async(req,res) => {
       res.cookie("doctortoken", "", {
         httpOnly: true,
         secure: process.env.NODE_ENV === "production",
+        sameSite: "None",
         expires: new Date(0),
       })
       res.json({success: true, message: "Logout Successfully"});
