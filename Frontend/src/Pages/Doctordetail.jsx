@@ -119,8 +119,6 @@ const Doctordetail = () => {
       }
   }
 
-
-
   useEffect(() => {
     fetchdoctordetail();
   }, [id, doctors]);

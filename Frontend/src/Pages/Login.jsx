@@ -40,16 +40,25 @@ const Login = () => {
     navigate("/")
    }
   }, [])
+  
+    useEffect(() => {
+           if (loading) {
+             document.body.style.overflow = "hidden";
+           } else {
+             document.body.style.overflow = "auto"; 
+           }
+         },[loading])
+       
 
-  if(loading){
-     return <div className="flex items-center justify-center w-full h-screen">
-      <Loading />
-     </div>
-  }
   
   return (
     <>
       <div className="w-full h-screen flex justify-center">
+      {
+        loading && <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.5)] z-[100] top-0 left-0 ">
+        <Loading />
+      </div>
+      }
         <form onSubmit={handlelogin} className="w-full md:w-[70%] lg:w-[50%] ">
           <h1 className=" font-semibold text-3xl lg:text-4xl px-8 py-5">
             Sign in
