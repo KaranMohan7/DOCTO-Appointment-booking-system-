@@ -18,7 +18,7 @@ const Myappointments = () => {
 
   const slotdateformat = (slotdate) => {
     const datearray = slotdate.split("_");
-    return datearray[0] + " " + months[Number(datearray[1])] + " " + datearray[2];
+    return datearray[0] + " " + months[Number(datearray[1]) - 1] + " " + datearray[2];
   };
 
   const getappointments = async () => {

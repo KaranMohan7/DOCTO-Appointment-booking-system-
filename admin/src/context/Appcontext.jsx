@@ -4,7 +4,7 @@ import { createContext } from 'react'
 export const Appcontext = createContext()
 
 const AppContextProvider = ({children}) => {
-  const currency = "$"
+  const currency = "₹"
   const months = [
     "Jan",
     "Feb",
@@ -37,7 +37,7 @@ const AppContextProvider = ({children}) => {
   
   const slotdateformat = (slotdate) => {
     const datearray = slotdate.split("_");
-    return datearray[0]+ " " +months[Number(datearray[1])] + " " + datearray[2]
+    return datearray[0] + " " + months[Number(datearray[1]) - 1] + " " + datearray[2];
 }
 
      const datavalue = {

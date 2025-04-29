@@ -10,7 +10,7 @@ const Appcontext = ({ children }) => {
   const [profileDetails,setprofileDetails] = useState([])
 
   const backendurl = import.meta.env.VITE_BACKEND_URL;
-  let symbol = "$";
+  let symbol = "₹";
 
 
   const getdoctors = async () => {

@@ -14,7 +14,6 @@ import { ToastContainer } from 'react-toastify'
 
 
 const App = () => {
-  
 
   return (
     <div className='w-full h-screen '>
@@ -30,10 +29,9 @@ const App = () => {
         <Route path='/appointments' element={<Myappointments />} />
         <Route path='/about' element={<About />} />
         <Route path='/contact' element={<Contact />} />
-        <Route path='/profile' element={<Profile /> } />
-      </Routes>
-
-    </div>
+        <Route path='/profile' element={<Profile />} />
+        </Routes>
+        </div>
   )
 }
 
