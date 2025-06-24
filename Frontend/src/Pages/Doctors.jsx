@@ -56,7 +56,7 @@ const Doctors = () => {
         <p className="text-start font-semibold">
           Browse specialist doctors.
         </p>
-        <select value={specialitydropdown}  onChange={handlechange} className="border-2 border-zinc-900 outline-none py-2 rounded-md px-2 w-22 md:w-40 lg:w-40 "
+        <select value={specialitydropdown}  onChange={handlechange} className="border-2 border-zinc-900 outline-none py-2 rounded-md px-2 w-22 md:w-40 lg:w-40 text-xs md:text-sm lg:text-sm "
         >
           {
               ["All", ...new Set(doctors.map(item => item.speciality))].map((speciality, index) => (

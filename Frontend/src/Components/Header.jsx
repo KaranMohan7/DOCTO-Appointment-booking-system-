@@ -7,7 +7,7 @@ const Header = () => {
 
   const scrollToBottom = () => {
     window.scrollTo({
-      top: document.body.scrollHeight,
+      top: 830,
       behavior: "smooth",
     });
   };
