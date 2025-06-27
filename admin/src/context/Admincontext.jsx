@@ -55,21 +55,24 @@ const AdminContextProvider = ({ children }) => {
 
 
   const alldoctors = async() => {
+    setloading(true)
       try {
          const {data} = await axios.get(`${backendurl}/admin/alldoctors`, {
           withCredentials: true
          });
          if(data.success){
            setdoctors(data.doctors)
+           setloading(false)
          }else{
           toast.error(data.message)
+             setloading(false)
          }
       } catch (error) {
         toast.error(error.message)
+           setloading(false)
       }
   }
 
-   
     const getavailability = async(id) => {
        try {
         const {data} = await axios.post(`${backendurl}/admin/availablity`, {id}, {
@@ -88,17 +91,21 @@ const AdminContextProvider = ({ children }) => {
     }
 
     const getallappointments = async() => {
+      setloading(true)
        try {
          const {data} = await axios.get(`${backendurl}/admin/allappointments`, {
           withCredentials: true
          })
          if(data.success){
           setallappointments(data.appointments)
+          setloading(false)
          }else{
           toast.error(data.message)
+            setloading(false)
          }
        } catch (error) {
         toast.error(error.message)
+          setloading(false)
        }
     }
 

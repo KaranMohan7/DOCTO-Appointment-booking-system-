@@ -175,7 +175,7 @@ const Myappointments = () => {
       <p className="font-semibold py-5 px-20">My Appointments</p>
       <hr className="border-gray-300 w-[90%] m-auto" />
       {loading ? (
-        <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.4)] z-[100] top-0 left-0">
+        <div className="flex fixed justify-center items-center w-full h-screen z-[100] top-0 left-0">
           <Loading />
         </div>
       ) : appointments.length > 0 ? (
