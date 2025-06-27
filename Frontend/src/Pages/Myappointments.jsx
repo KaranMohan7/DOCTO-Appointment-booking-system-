@@ -11,7 +11,6 @@ const Myappointments = () => {
   const { backendurl, authuser, getdoctors } = useContext(appcontext);
   const [loading, setloading] = useState(false);
   const [appointments, setappointments] = useState([]);
-  const [intialloading,setinitialloading] = useState(false)
 
   const months = [
     "Jan",
@@ -36,20 +35,20 @@ const Myappointments = () => {
   };
 
   const getappointments = async () => {
-    setinitialloading(true);
+    setloading(true);
     try {
       const { data } = await axios.get(`${backendurl}/user/getappointment`, {
         withCredentials: true,
       });
       if (data.success) {
         setappointments(data.appointdata.reverse());
-        setinitialloading(false);
+        setloading(false);
       } else {
         toast.error(data.message);
-        setinitialloading(false);
+        setloading(false);
       }
     } catch (error) {
-      setinitialloading(false);
+      setloading(false);
       toast.error(error.message);
     }
   };
@@ -66,11 +65,14 @@ const Myappointments = () => {
         toast.success(data.message);
         getappointments();
         getdoctors();
+        setloading(false)
       } else {
         toast.error(data.message);
+           setloading(false)
       }
     } catch (error) {
       toast.error(error.message);
+         setloading(false)
     } finally {
       setloading(false);
     }
@@ -172,7 +174,7 @@ const Myappointments = () => {
     <div className="w-full min-h-screen">
       <p className="font-semibold py-5 px-20">My Appointments</p>
       <hr className="border-gray-300 w-[90%] m-auto" />
-      {intialloading ? (
+      {loading ? (
         <div className="flex fixed justify-center items-center w-full h-screen bg-[rgba(0,0,0,0.4)] z-[100] top-0 left-0">
           <Loading />
         </div>
