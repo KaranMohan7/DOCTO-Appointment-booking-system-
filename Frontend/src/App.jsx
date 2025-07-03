@@ -1,18 +1,16 @@
-import React, { lazy, Suspense } from 'react'
+import React from 'react'
 import {Route, Routes} from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
-import Loading from './Components/Loading'
+import Home from './Pages/Home'
+import About from './Pages/About'
+import Contact from './Pages/Contact'
+import Doctors from './Pages/Doctors'
 import Navbar from './Components/Navbar'
-
-const Home = lazy(() => import('./Pages/Home'))
-const About = lazy(() => import('./Pages/About'))
-const Contact = lazy(() => import('./Pages/Contact'))
-const Doctors = lazy(() => import('./Pages/Doctors'))
-const Login = lazy(() => import('./Pages/Login'))
-const Profile = lazy(() => import('./Pages/Profile'))
-const Doctordetail = lazy(() => import('./Pages/Doctordetail'))
-const Create = lazy(() => import('./Pages/Create'))
-const Myappointments = lazy(() => import('./Pages/Myappointments'))
+import Login from './Pages/Login'
+import Profile from  './Pages/Profile'
+import Doctordetail from "./Pages/Doctordetail"
+import Create from './Pages/Create'
+import Myappointments from './Pages/Myappointments'
+import { ToastContainer } from 'react-toastify'
 
 
 const App = () => {
@@ -21,7 +19,6 @@ const App = () => {
     <div className='w-full h-screen '>
          <ToastContainer />
       <Navbar/>
-      <Suspense fallback={<div className='flex justify-center mt-20'><Loading /></div>}>
       <Routes>
         <Route path='/' element={<Home />}/>
         <Route path='/login' element={<Login />} />
@@ -34,7 +31,6 @@ const App = () => {
         <Route path='/contact' element={<Contact />} />
         <Route path='/profile' element={<Profile />} />
         </Routes>
-        </Suspense>
         </div>
   )
 }
